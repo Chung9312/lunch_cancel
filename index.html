@@ -138,8 +138,14 @@
         </div>
       </div>
       <div class="text-end">
-        <small class="text-muted">繁體中文介面</small>
+        <small class="text-muted">繁體中文</small>
       </div>
+    </div>
+
+
+    <div class="alert alert-warning mb-4" style="font-size: 1.2rem; font-weight: bold;">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i>
+      請勿在休假日提交退餐，後台將無法收到資訊！
     </div>
 
     <form id="mealForm">
@@ -237,7 +243,7 @@
     // 6. 優化最早可選日期提示的顯示
     const minNoticeEl = document.getElementById('minNotice');
     // 使用 strong 標籤來強調日期並分行顯示說明
-    minNoticeEl.innerHTML = `⚠️ **最早可選：${formatChineseDate(minDate)}**<br><small class="d-block mt-1">（需至少三個工作日前登記，不含週六日）</small>`;
+    minNoticeEl.innerHTML = `<div style="font-size: 1.2rem;">⚠️ **最早可選：${formatChineseDate(minDate)}**<br><small class="d-block mt-1" style="font-size: 1.1rem;">（需至少三個工作日前登記，不含週六日）</small>`;
 
     // 小幫手：只比較日期（忽略時間）
     function dateOnly(d) { return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
