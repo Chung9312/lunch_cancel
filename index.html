@@ -243,7 +243,7 @@
     // 6. 優化最早可選日期提示的顯示
     const minNoticeEl = document.getElementById('minNotice');
     // 使用 strong 標籤來強調日期並分行顯示說明
-    minNoticeEl.innerHTML = `<div style="font-size: 1.0rem;">⚠️ **最早可選：${formatChineseDate(minDate)}**<br><small class="d-block mt-1" style="font-size: 0.9rem;">（需至少三個工作日前登記，不含週六日）</small>`;
+    minNoticeEl.innerHTML = `<div style="font-size: 1.0rem;">⚠️ **最早可選：${formatChineseDate(minDate)}** ⚠️<br><small class="d-block mt-1" style="font-size: 0.9rem;">（需至少三個工作日前登記，不含週六日）</small>`;
 
     // 小幫手：只比較日期（忽略時間）
     function dateOnly(d) { return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
@@ -346,4 +346,5 @@
 </body>
 
 </html>
+
 
