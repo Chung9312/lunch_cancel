@@ -103,20 +103,20 @@
     </div>
 
     <div class="mt-4 pt-3 border-top">
-      <h5 class="mb-3 text-secondary"><i class="bi bi-building-dash me-2"></i> 會議退餐（Excel：A欄=姓名，B欄=日期）</h5>
+      <h5 class="mb-3 text-secondary"><i class="bi bi-building-dash me-2"></i> 會議退餐（Excel：A欄=姓名，B欄=退餐日期）</h5>
       <div class="input-group">
         <input type="file" accept=".xlsx,.xls" id="excelFile" class="form-control" aria-label="Excel檔案">
         <button type="button" id="parseExcelBtn" class="btn btn-outline-secondary"><i class="bi bi-cloud-arrow-up"></i> 讀取檔案</button>
         <button type="button" id="sendBatchBtn" class="btn btn-primary"><i class="bi bi-send-fill"></i> 匯入並送出</button>
       </div>
-      <div class="help-small mt-1 text-muted d-flex justify-content-between align-items-center">
+      <div id="batchMsg" class="mt-2"></div> <div class="help-small mt-1 text-muted d-flex justify-content-between align-items-center">
         <span>請確認 Excel 檔案中 A 欄為姓名，B 欄為退餐日期。</span>
         <div>
             <a href="會議退餐操作說明.pdf" download class="text-decoration-none me-3">
                 <i class="bi bi-file-earmark-pdf me-1"></i>下載操作說明
             </a>
             <a href="批次訂餐(範例).xlsx" download class="text-decoration-none">
-                <i class="bi bi-download me-1"></i>下載範例檔案
+                <i class="bi bi-file-earmark-excel me-1"></i>下載範例檔案
             </a>
         </div>
       </div>
@@ -277,12 +277,19 @@
       setTimeout(() => el.innerHTML = '', 4000);
     }
     
+    // **新增：用於顯示批次送出結果的函式**
+    function showBatchMsg(text, type) {
+      const el = document.getElementById('batchMsg'); // 指向新的 batchMsg 容器
+      el.innerHTML = `<div class="alert alert-${type} py-2">${text}</div>`;
+      setTimeout(() => el.innerHTML = '', 6000); // 批次結果保留久一點
+    }
+    
     // --- Excel 匯入功能 (整合自原版) ---
     let importedGroups = {}; // 儲存解析後的資料
 
     document.getElementById('parseExcelBtn').addEventListener('click', () => {
       const f = document.getElementById('excelFile').files[0];
-      if (!f) { showMsg('請先選擇 Excel 檔案', 'danger'); return; }
+      if (!f) { showBatchMsg('請先選擇 Excel 檔案', 'danger'); return; } // 使用 showBatchMsg
       readExcelFile(f);
     });
 
@@ -336,7 +343,7 @@
           importedGroups = groups; 
           renderPreview(entries, groups);
         } catch(err){ 
-          showMsg('解析 Excel 失敗：' + err.message, 'danger'); 
+          showBatchMsg('解析 Excel 失敗：' + err.message, 'danger'); // 使用 showBatchMsg
         }
       };
       reader.readAsArrayBuffer(file);
@@ -361,7 +368,7 @@
         return; 
       } 
       
-      let html = `<div class="small text-muted mb-2">共讀取 ${entries.length} 筆資料，其中 ${Object.keys(groups).length} 位使用者有有效日期可送出。</div>`; 
+      let html = `<div class="small text-muted mb-2">共讀取 ${entries.length} 筆資料。</div>`; 
       
       html += '<div class="table-responsive"><table class="table table-sm table-bordered"><thead><tr><th>姓名</th><th>日期（原始值）</th><th>解析結果</th><th>狀態</th></tr></thead><tbody>'; 
       
@@ -398,7 +405,7 @@
     // 批次送出功能
     document.getElementById('sendBatchBtn').addEventListener('click', async () => {
       const keys = Object.keys(importedGroups || {});
-      if (keys.length === 0) { showMsg('沒有可送出的資料，請先讀取 Excel 並確認有有效日期。', 'danger'); return; }
+      if (keys.length === 0) { showBatchMsg('沒有可送出的資料，請先讀取 Excel 並確認有有效日期。', 'danger'); return; } // 使用 showBatchMsg
       
       const btn = document.getElementById('sendBatchBtn'); 
       btn.disabled = true; 
@@ -438,7 +445,7 @@
       
       btn.disabled = false; 
       btn.innerHTML = orig; 
-      showMsg(`批次完成：成功 ${success} 筆，失敗 ${fail} 筆。`, success > 0 ? 'success' : 'danger');
+      showBatchMsg(`批次完成：成功 ${success} 筆，失敗 ${fail} 筆。`, success > 0 ? 'success' : 'danger'); // **使用 showBatchMsg**
     });
 
     // HTML 轉義工具函式 (防止 XSS)
