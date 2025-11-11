@@ -9,122 +9,36 @@
   <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
   <style>
     /* 1. 現代化視覺與間距 */
-    :root {
-      --primary-color: #4361ee;
-      --secondary-color: #3f37c9;
-      --accent-color: #4895ef;
-      --background-color: #f0f2f5;
-      --card-background: #ffffff;
-      --text-primary: #2b2d42;
-      --text-secondary: #6c757d;
-    }
-    
     body {
-      background: var(--background-color);
-      padding: 2rem 1rem;
-      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Noto Sans TC';
-      color: var(--text-primary);
-      line-height: 1.6;
+      background: #f8f9fa; /* 淺灰色背景更柔和 */
+      padding: 3rem 1rem; /* 增加頂部和底部間距 */
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Noto Sans TC'; /* 現代字體堆棧 */
     }
-
     .card-center {
-      max-width: 800px;
-      margin: 2rem auto;
-      border-radius: 16px;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
-      border: none;
-      background: var(--card-background);
-      transition: all 0.3s ease;
+      max-width: 800px; /* 略微增加卡片寬度 */
+      margin: 0 auto;
+      border-radius: 12px; /* 更圓潤的邊角 */
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05), 0 5px 10px rgba(0, 0, 0, 0.03); /* 更精緻的陰影 */
+      border: none; /* 移除預設的邊框 */
     }
-
-    .card-center:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
-    }
-
-    .brand { 
-      display: flex; 
-      align-items: center; 
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
+    .brand { display: flex; align-items: center; gap: .75rem; }
     /* 2. 優化品牌 Logo */
     .brand .logo {
-      width: 56px; 
-      height: 56px;
-      border-radius: 14px;
-      background: var(--primary-color);
+      width: 50px; 
+      height: 50px;
+      border-radius: 10px;
+      background: #0d6efd;
       color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      font-size: 1.75rem;
-      box-shadow: 0 4px 12px rgba(67, 97, 238, 0.15);
-      transition: all 0.3s ease;
+      font-size: 1.5rem;
     }
-
-    .brand .logo:hover {
-      transform: rotate(-5deg);
-    }
-
-    .brand h4 { 
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 0.25rem;
-    }
-
-    .help-small { 
-      font-size: 0.875rem; 
-      color: var(--text-secondary);
-      line-height: 1.5;
-    }
-
-    /* 3. 調整表單樣式 */
-    .form-control, .input-group-text {
-      padding: 0.75rem 1rem;
-      border-radius: 10px;
-      border-color: #e0e0e0;
-    }
-
-    .form-control:focus {
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
-    }
-
-    .btn-primary {
-      background: var(--primary-color);
-      border: none;
-      padding: 0.75rem 1.5rem;
-      border-radius: 10px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-
-    .btn-primary:hover {
-      background: var(--secondary-color);
-      transform: translateY(-1px);
-    }
-
-    /* 4. 調整列表樣式 */
-    #selectedList {
-      margin: 0;
-      padding: 0;
-    }
-
-    #selectedList li { 
-      list-style: none; 
-      padding: 0.5rem 0.75rem;
-      margin-bottom: 0.5rem;
-      background: #f8f9fa;
-      border-radius: 8px;
-      transition: all 0.2s ease;
-    }
-
-    #selectedList li:hover {
-      background: #eef1f5;
-    }
+    .brand h4 { font-weight: 600; }
+    .help-small { font-size: .85rem; color: #6c757d; }
+    /* 3. 調整列表樣式 */
+    #selectedList li { list-style: none; padding: .15rem 0; }
   </style>
 </head>
 <body>
@@ -138,7 +52,7 @@
         </div>
       </div>
       <div class="text-end">
-        <small class="text-muted">政附</small>
+        <small class="text-muted">政附_宏中</small>
       </div>
     </div>
 
@@ -150,6 +64,7 @@
 
     <form id="mealForm">
       <div class="row g-3">
+        <h5 class="mb-1 text-secondary"><i class="bi bi-person-dash me-2"></i> 個人退餐 </h5>
         <div class="col-12 col-md-6">
           <label class="form-label">姓名</label>
           <input type="text" class="form-control" id="name" placeholder="請輸入姓名" required>
@@ -185,9 +100,31 @@
         <li class="col-12 text-muted fst-italic ps-3">尚未選擇任何日期。</li>
       </ul>
     </div>
-  </div>
+
+    <div class="mt-4 pt-3 border-top">
+      <h5 class="mb-3 text-secondary"><i class="bi bi-building-dash me-2"></i> 會議退餐（Excel：A欄=姓名，B欄=日期）</h5>
+      <div class="input-group">
+        <input type="file" accept=".xlsx,.xls" id="excelFile" class="form-control" aria-label="Excel檔案">
+        <button type="button" id="parseExcelBtn" class="btn btn-outline-secondary"><i class="bi bi-cloud-arrow-up"></i> 讀取檔案</button>
+        <button type="button" id="sendBatchBtn" class="btn btn-primary"><i class="bi bi-send-fill"></i> 匯入並送出</button>
+      </div>
+      <div class="help-small mt-1 text-muted d-flex justify-content-between align-items-center">
+        <span>請確認 Excel 檔案中 A 欄為姓名，B 欄為退餐日期。</span>
+        <div>
+            <a href="會議退餐操作說明.pdf" download class="text-decoration-none me-3">
+                <i class="bi bi-file-earmark-pdf me-1"></i>下載操作說明
+            </a>
+            <a href="批次訂餐(範例).xlsx" download class="text-decoration-none">
+                <i class="bi bi-download me-1"></i>下載範例檔案
+            </a>
+        </div>
+      </div>
+      <div id="excelPreview" class="mt-3"></div>
+    </div>
+    </div>
 
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
   <script>
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzXaNUsL9eXLUv79-s7oSvnaUnsoj-czYI0AhCY00IgFaVDC1-l2XzSLxbZOUvha1gM/exec';
 
@@ -240,9 +177,8 @@
       onChange: updateSelectedList
     });
 
-    // 6. 優化最早可選日期提示的顯示
+    // 優化最早可選日期提示的顯示
     const minNoticeEl = document.getElementById('minNotice');
-    // 使用 strong 標籤來強調日期並分行顯示說明
     minNoticeEl.innerHTML = `<div style="font-size: 1.0rem;">⚠️ **最早可選：${formatChineseDate(minDate)}** ⚠️<br><small class="d-block mt-1" style="font-size: 0.9rem;">（需至少三個工作日前登記，不含週六日）</small>`;
 
     // 小幫手：只比較日期（忽略時間）
@@ -260,7 +196,7 @@
       }
     }
 
-    // 7. 替換優化後的列表更新函式
+    // 列表更新函式
     function updateSelectedList(selectedDates) {
       const ul = document.getElementById('selectedList');
       ul.innerHTML = '';
@@ -275,11 +211,9 @@
 
       selectedDates.sort((a,b)=>a-b).forEach(d => {
         const li = document.createElement('li');
-        // 應用新的列樣式，讓日期橫向排列 (易讀)
         li.classList.add('col-12', 'col-sm-6', 'col-md-4'); 
         li.style.listStyle = 'none'; 
         
-        // 使用更醒目的圖標和粗體日期
         li.innerHTML = `<i class="bi bi-check-circle-fill text-success me-2"></i><strong>${formatChineseDate(d)}</strong> <small class="text-muted">(${picker.formatDate(d,'Y-m-d')})</small>`;
         ul.appendChild(li);
       });
@@ -298,8 +232,7 @@
         return;
       }
 
-      // 驗證：確保每個選擇的日期都符合「至少三個工作日前」的規則
-      // 此驗證邏輯與 flatpickr 的 minDate 協同工作，確保資料正確性
+      // 驗證截止日期
       for (const selectedDate of picker.selectedDates) {
         const cutoffDate = getMinAvailableDate(dateOnly(selectedDate));
         if (dateOnly(now) > cutoffDate) {
@@ -342,10 +275,176 @@
       el.innerHTML = `<div class="alert alert-${type} py-2">${text}</div>`;
       setTimeout(() => el.innerHTML = '', 4000);
     }
+    
+    // --- Excel 匯入功能 (整合自原版) ---
+    let importedGroups = {}; // 儲存解析後的資料
+
+    document.getElementById('parseExcelBtn').addEventListener('click', () => {
+      const f = document.getElementById('excelFile').files[0];
+      if (!f) { showMsg('請先選擇 Excel 檔案', 'danger'); return; }
+      readExcelFile(f);
+    });
+
+    async function readExcelFile(file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const data = new Uint8Array(e.target.result);
+          // 使用 XLSX.read 讀取檔案
+          const workbook = XLSX.read(data, { type: 'array' });
+          const sheet = workbook.Sheets[workbook.SheetNames[0]];
+          // 轉換為 JSON 陣列，header: 1 表示將第一行作為資料的一部分
+          const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
+          
+          const entries = [];
+          for (let i=0;i<rows.length;i++){
+            const row = rows[i];
+            const name = String(row[0]||'').trim(); // A欄為姓名
+            const rawDate = row[1]; // B欄為日期
+            
+            if (!name) continue; // 忽略沒有姓名的行
+            if (rawDate === '' || rawDate === null || rawDate === undefined) { 
+                entries.push({name, raw: rawDate, date: null}); continue; 
+            }
+            
+            let dateObj = null;
+            // 嘗試解析 Excel 數字日期
+            if (typeof rawDate === 'number') dateObj = excelDateToJSDate(rawDate);
+            // 嘗試解析字串日期
+            else { 
+                const tryDate = new Date(String(rawDate)); 
+                if (!isNaN(tryDate)) dateObj = tryDate; 
+                else { 
+                    const parsed = Date.parse(String(rawDate).replace(/\.|\//g,'-')); 
+                    if (!isNaN(parsed)) dateObj = new Date(parsed); 
+                } 
+            }
+            entries.push({ name, raw: rawDate, date: dateObj });
+          }
+          
+          // 將有效日期按姓名分組
+          const groups = {};
+          entries.forEach(e=>{ 
+            if (!e.date) return; 
+            // 確保日期物件只包含日期部分，方便後續比較
+            const dateOnlyObj = new Date(e.date.getFullYear(), e.date.getMonth(), e.date.getDate()); 
+            if (!groups[e.name]) groups[e.name]=[]; 
+            groups[e.name].push(dateOnlyObj); 
+          });
+          
+          importedGroups = groups; 
+          renderPreview(entries, groups);
+        } catch(err){ 
+          showMsg('解析 Excel 失敗：' + err.message, 'danger'); 
+        }
+      };
+      reader.readAsArrayBuffer(file);
+    }
+
+    // 將 Excel 序列日期轉換為 JavaScript Date 物件
+    function excelDateToJSDate(serial){ 
+      const utc_days = Math.floor(serial - 25569); 
+      const utc_value = utc_days * 86400; 
+      const fractional_day = serial - Math.floor(serial); 
+      const total_seconds = Math.round(86400 * fractional_day); 
+      const date = new Date((utc_value + total_seconds) * 1000); 
+      // 確保只返回日期部分
+      return new Date(date.getFullYear(), date.getMonth(), date.getDate()); 
+    }
+
+    // 渲染 Excel 預覽表格
+    function renderPreview(entries, groups){ 
+      const el = document.getElementById('excelPreview'); 
+      if (!entries || entries.length===0){ 
+        el.innerHTML = '<div class="text-muted">未讀取到資料</div>'; 
+        return; 
+      } 
+      
+      let html = `<div class="small text-muted mb-2">共讀取 ${entries.length} 筆資料，其中 ${Object.keys(groups).length} 位使用者有有效日期可送出。</div>`; 
+      
+      html += '<div class="table-responsive"><table class="table table-sm table-bordered"><thead><tr><th>姓名</th><th>日期（原始值）</th><th>解析結果</th><th>狀態</th></tr></thead><tbody>'; 
+      
+      entries.forEach(e=>{ 
+        // 檢查日期是否有效且不早於 minDate
+        let statusText = '';
+        let statusClass = '';
+        if (e.date) {
+            const dateOnlyObj = dateOnly(e.date);
+            if (dateOnlyObj < minDate) {
+                statusText = '日期過早(無效)';
+                statusClass = 'text-warning';
+            } else {
+                statusText = '有效日期';
+                statusClass = 'text-success';
+            }
+        } else {
+            statusText = '日期無效或缺失';
+            statusClass = 'text-danger';
+        }
+
+        html += `<tr>
+                  <td>${escapeHtml(e.name)}</td>
+                  <td>${escapeHtml(String(e.raw))}</td>
+                  <td>${e.date ? escapeHtml(formatChineseDate(e.date)) : '<span class="text-danger">無效日期</span>'}</td>
+                  <td class="${statusClass}">${statusText}</td>
+                </tr>`; 
+      }); 
+      
+      html += '</tbody></table></div>'; 
+      el.innerHTML = html; 
+    }
+
+    // 批次送出功能
+    document.getElementById('sendBatchBtn').addEventListener('click', async () => {
+      const keys = Object.keys(importedGroups || {});
+      if (keys.length === 0) { showMsg('沒有可送出的資料，請先讀取 Excel 並確認有有效日期。', 'danger'); return; }
+      
+      const btn = document.getElementById('sendBatchBtn'); 
+      btn.disabled = true; 
+      const orig = btn.innerHTML; 
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> 傳送中...';
+      
+      let success = 0, fail = 0;
+      
+      for (const name of keys){ 
+        const dates = importedGroups[name]; 
+        // 過濾掉早於最早可選日期的日期
+        const filtered = dates.filter(d => dateOnly(d) >= dateOnly(minDate)); 
+        
+        if (filtered.length === 0){ 
+          fail++; 
+          continue; 
+        } 
+        
+        const payload = { 
+          name, 
+          dates: filtered.map(d => picker.formatDate(d,'Y-m-d')) // 轉換為 YYYY-MM-DD 格式
+        }; 
+        
+        try{ 
+          const resp = await fetch(SCRIPT_URL, { 
+            method:'POST', 
+            body: JSON.stringify(payload), 
+            headers: { 'Content-Type': 'text/plain' } 
+          }); 
+          const result = await resp.json(); 
+          if (result && result.status === 'success') success++; 
+          else fail++; 
+        } catch(err){ 
+          fail++; 
+        } 
+      }
+      
+      btn.disabled = false; 
+      btn.innerHTML = orig; 
+      showMsg(`批次完成：成功 ${success} 筆，失敗 ${fail} 筆。`, success > 0 ? 'success' : 'danger');
+    });
+
+    // HTML 轉義工具函式 (防止 XSS)
+    function escapeHtml(s){ 
+      return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); 
+    }
+    
   </script>
 </body>
-
 </html>
-
-
-
