@@ -74,7 +74,7 @@
     /* 4. 強化重要資訊 (Alert Box) */
     .alert-warning {
       border-left: 5px solid #ffc107; /* 強化左側邊框 */
-      box-shadow: 0 5px 15px rgba(255, 193, 7, 0.15); /* 增加陰影使其突出 */
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.504); /* 增加陰影使其突出 */
     }
 
     /* 5. 按鈕互動效果 */
@@ -86,7 +86,7 @@
     .btn:hover {
       /* 新增：按鈕 hover 時輕微上移並增加陰影 */
       transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.468);
     }
 
     .btn:active {
@@ -238,7 +238,7 @@
 
     // 優化最早可選日期提示的顯示
     const minNoticeEl = document.getElementById('minNotice');
-    minNoticeEl.innerHTML = `<div style="font-size: 1.0rem;">⚠️ **最早可選：${formatChineseDate(minDate)}** ⚠️<br><small class="d-block mt-1" style="font-size: 0.9rem;">（需至少三個工作日前登記，不含週六日）</small>`;
+    minNoticeEl.innerHTML = `<div style="font-size: 1.0rem; 1.0rem; font-weight: bold;">⚠️ **最早可選：${formatChineseDate(minDate)}** ⚠️<br><small class="d-block mt-1" style="font-size: 0.9rem; 1.0rem; font-weight: bold;">（需至少三個工作日前登記，不含週六、日）</small>`;
 
     // 小幫手：只比較日期（忽略時間）
     function dateOnly(d) { return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
@@ -541,6 +541,7 @@
     
   </script>
 </body>
+
 
 
 </html>
