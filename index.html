@@ -10,36 +10,93 @@
   <style>
     /* 1. 現代化視覺與間距 */
     body {
-      background: #eee7e7; /* 淺灰色背景更柔和 */
-      padding: 3rem 1rem; /* 增加頂部和底部間距 */
-      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Noto Sans TC'; /* 現代字體堆棧 */
+      background: linear-gradient(135deg, #efd5d7 0%, #f3bee2 100%);
+      padding: 3rem 1rem;
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Noto Sans TC';
     }
     .card-center {
-      background-color: #fae9e9; /* 如果要保持白色，或者改成 #fae3e3 淺粉色 */
-      max-width: 800px; /* 略微增加卡片寬度 */
+      /* 卡片改為純白，搭配更精緻的藍色系陰影 */
+      background-color: #f5bcc9;
+      max-width: 800px;
       margin: 0 auto;
-      border-radius: 12px; /* 更圓潤的邊角 */
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05), 0 5px 10px rgba(0, 0, 0, 0.03); /* 更精緻的陰影 */
-      border: none; /* 移除預設的邊框 */
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0, 80, 170, 0.08); /* 更柔和的陰影 */
+      border: none;
+      /* 新增：卡片動態效果 */
+      transition: all 0.3s ease-in-out;
     }
+
+    
+
     .brand { display: flex; align-items: center; gap: .75rem; }
-    /* 2. 優化品牌 Logo */
+
+    /* 2. 優化品牌 Logo (更活潑) */
     .brand .logo {
       width: 50px; 
       height: 50px;
       border-radius: 10px;
-      background: #0d6efd;
+      /* 調整為漸層背景 */
+      background: linear-gradient(45deg, #0d6efd, #0dcaf0);
       color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
       font-size: 1.5rem;
+      /* 新增：Logo 動態效果 */
+      transition: all 0.3s ease;
     }
+
+    /* 新增：Logo hover 效果 */
+    .brand .logo:hover {
+      transform: scale(1.1) rotate(-5deg);
+      box-shadow: 0 4px 15px rgba(13, 110, 253, 0.4);
+    }
+
     .brand h4 { font-weight: 600; }
     .help-small { font-size: .85rem; color: #6c757d; }
     /* 3. 調整列表樣式 */
-    #selectedList li { list-style: none; padding: .15rem 0; }
+    #selectedList li { 
+      list-style: none; 
+      padding: .15rem 0; 
+      /* 新增：列表項目過渡 */
+      transition: all 0.2s ease-out;
+    }
+
+    /* 新增：列表項目 hover 效果 (圖示) */
+    #selectedList li:hover .bi-check-circle-fill {
+      transform: scale(1.2);
+    }
+    #selectedList li:hover strong {
+      color: #0d6efd; /* hover 時文字變色 */
+    }
+
+    /* 4. 強化重要資訊 (Alert Box) */
+    .alert-warning {
+      border-left: 5px solid #ffc107; /* 強化左側邊框 */
+      box-shadow: 0 5px 15px rgba(255, 193, 7, 0.15); /* 增加陰影使其突出 */
+    }
+
+    /* 5. 按鈕互動效果 */
+    .btn {
+      /* 新增：所有按鈕的基礎過渡 */
+      transition: all 0.25s ease-out;
+    }
+    
+    .btn:hover {
+      /* 新增：按鈕 hover 時輕微上移並增加陰影 */
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn:active {
+      /* 新增：按鈕點擊時的效果 */
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+
+
   </style>
 </head>
 <body>
@@ -48,7 +105,7 @@
       <div class="brand">
         <div class="logo">退</div>
         <div>
-          <h4 class="mb-0">退餐日期登記</h4>
+          <h4 class="mb-0">教職員退餐日期登記</h4>
           <div class="help-small">請填寫姓名並從日曆多選退餐日期</div>
         </div>
       </div>
@@ -65,7 +122,7 @@
 
     <form id="mealForm">
       <div class="row g-3">
-        <h5 class="mb-1 text-secondary"><i class="bi bi-person-dash me-2"></i> 個人退餐 </h5>
+        <h5 class="mb-1 text-black"><i class="bi bi-person-dash me-2"></i> 個人退餐 </h5>
         <div class="col-12 col-md-6">
           <label class="form-label">姓名</label>
           <input type="text" class="form-control" id="name" placeholder="請輸入姓名" required>
@@ -103,7 +160,7 @@
     </div>
 
     <div class="mt-4 pt-3 border-top">
-      <h5 class="mb-3 text-secondary"><i class="bi bi-building-dash me-2"></i> 會議退餐（Excel：A欄=姓名，B欄=退餐日期）</h5>
+      <h5 class="mb-3 text-black"><i class="bi bi-building-dash me-2"></i> 會議退餐（Excel：A欄=姓名，B欄=退餐日期）</h5>
       <div class="input-group">
         <input type="file" accept=".xlsx,.xls" id="excelFile" class="form-control" aria-label="Excel檔案">
         <button type="button" id="parseExcelBtn" class="btn btn-outline-secondary"><i class="bi bi-cloud-arrow-up"></i> 讀取檔案</button>
@@ -207,7 +264,7 @@
       document.getElementById('selectedCount').textContent = selectedDates.length; 
 
       if (selectedDates.length === 0) {
-          ul.innerHTML = '<li class="col-12 text-muted fst-italic ps-3">尚未選擇任何日期。</li>';
+          ul.innerHTML = '<li class="col-12 text-muted fst-italic ps-3">尚未選擇退餐日期。</li>';
           return;
       }
 
@@ -236,10 +293,14 @@
 
       // 驗證截止日期
       for (const selectedDate of picker.selectedDates) {
-        const cutoffDate = getMinAvailableDate(dateOnly(selectedDate));
-        if (dateOnly(now) > cutoffDate) {
-          showMsg(`所選日期（${formatChineseDate(selectedDate)}）需至少三個工作日前登記。`, 'danger');
-          return;
+        // *** 修正：這裡的截止日期檢查邏輯有誤 ***
+        // 應該是：
+        // 1. 取得「今天」
+        // 2. 取得「最早可選日」(minDate)
+        // 3. 檢查「選擇的日期」(selectedDate) 是否早於 minDate
+        if (dateOnly(selectedDate) < dateOnly(minDate)) {
+           showMsg(`所選日期（${formatChineseDate(selectedDate)}）早於最早可選日期。`, 'danger');
+           return;
         }
       }
 
@@ -286,7 +347,9 @@
     }
     
     // --- Excel 匯入功能 (整合自原版) ---
-    let importedGroups = {}; // 儲存解析後的資料
+    
+    // *** 修改點 1：不再儲存分組 (groups)，改儲存「有效且可發送的單筆資料」 ***
+    let validEntriesToSend = []; // 儲存解析後「有效」的資料 (每一筆都是 {name, date} )
 
     document.getElementById('parseExcelBtn').addEventListener('click', () => {
       const f = document.getElementById('excelFile').files[0];
@@ -305,7 +368,12 @@
           // 轉換為 JSON 陣列，header: 1 表示將第一行作為資料的一部分
           const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
           
+          // 'entries' 用於「預覽表格」，包含所有讀取到的行
           const entries = [];
+          
+          // *** 修改點 2： 'validEntriesToSend' 用於「實際發送」，只包含有效的行 ***
+          validEntriesToSend = []; // 清空上次的紀錄
+
           for (let i=0;i<rows.length;i++){
             const row = rows[i];
             const name = String(row[0]||'').trim(); // A欄為姓名
@@ -328,21 +396,26 @@
                     if (!isNaN(parsed)) dateObj = new Date(parsed); 
                 } 
             }
+            
+            // 確保日期物件只包含日期部分
+            if (dateObj && !isNaN(dateObj)) {
+                dateObj = new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate());
+            } else {
+                dateObj = null; // 解析失敗
+            }
+
+            // 無論是否有效，都加入到 'entries' 供預覽
             entries.push({ name, raw: rawDate, date: dateObj });
+
+            // *** 修改點 3：如果此筆資料有效 (有日期且不早於 minDate)，則加入待發送清單 ***
+            if (dateObj && dateOnly(dateObj) >= dateOnly(minDate)) {
+                validEntriesToSend.push({ name: name, date: dateObj });
+            }
           }
           
-          // 將有效日期按姓名分組
-          const groups = {};
-          entries.forEach(e=>{ 
-            if (!e.date) return; 
-            // 確保日期物件只包含日期部分，方便後續比較
-            const dateOnlyObj = new Date(e.date.getFullYear(), e.date.getMonth(), e.date.getDate()); 
-            if (!groups[e.name]) groups[e.name]=[]; 
-            groups[e.name].push(dateOnlyObj); 
-          });
-          
-          importedGroups = groups; 
-          renderPreview(entries, groups);
+          // *** 修改點 4： 移除分組 (groups) 邏輯，預覽函式不再需要 'groups' 參數 ***
+          renderPreview(entries);
+
         } catch(err){ 
           showBatchMsg('解析 Excel 失敗：' + err.message, 'danger'); // 使用 showBatchMsg
         }
@@ -361,17 +434,19 @@
       return new Date(date.getFullYear(), date.getMonth(), date.getDate()); 
     }
 
-    // 渲染 Excel 預覽表格
-    function renderPreview(entries, groups){ 
+    // *** 修改點 5： 移除 renderPreview 函式簽名中的 'groups' 參數 ***
+    function renderPreview(entries){ 
       const el = document.getElementById('excelPreview'); 
       if (!entries || entries.length===0){ 
         el.innerHTML = '<div class="text-muted">未讀取到資料</div>'; 
         return; 
       } 
       
-      let html = `<div class="small text-muted mb-2">共讀取 ${entries.length} 筆資料。</div>`; 
+      // *** 修改點 6：計算「有效可發送」的筆數 ***
+      const validCount = validEntriesToSend.length;
+      let html = `<div class="small text-muted mb-2">共讀取 ${entries.length} 筆資料，其中 ${validCount} 筆為有效且可送出的日期。</div>`;
       
-      html += '<div class="table-responsive"><table class="table table-sm table-bordered"><thead><tr><th>姓名</th><th>日期（原始值）</th><th>解析結果</th><th>狀態</th></tr></thead><tbody>'; 
+      html += '<div class="table-responsive" style="max-height: 300px; overflow-y: auto;"><table class="table table-sm table-bordered table-hover"><thead><tr class="table-light" style="position: sticky; top: 0;"><th>姓名</th><th>日期（原始值）</th><th>解析結果</th><th>狀態</th></tr></thead><tbody>'; 
       
       entries.forEach(e=>{ 
         // 檢查日期是否有效且不早於 minDate
@@ -379,7 +454,7 @@
         let statusClass = '';
         if (e.date) {
             const dateOnlyObj = dateOnly(e.date);
-            if (dateOnlyObj < minDate) {
+            if (dateOnlyObj < dateOnly(minDate)) { // *** 確保比較時使用 dateOnly ***
                 statusText = '日期過早(無效)';
                 statusClass = 'text-warning';
             } else {
@@ -403,31 +478,34 @@
       el.innerHTML = html; 
     }
 
-    // 批次送出功能
+    // *** 修改點 7：批次送出功能 ***
     document.getElementById('sendBatchBtn').addEventListener('click', async () => {
-      const keys = Object.keys(importedGroups || {});
-      if (keys.length === 0) { showBatchMsg('沒有可送出的資料，請先讀取 Excel 並確認有有效日期。', 'danger'); return; } // 使用 showBatchMsg
+      
+      // *** 修改點 8：檢查 'validEntriesToSend' 陣列 ***
+      if (validEntriesToSend.length === 0) { 
+        showBatchMsg('沒有可送出的資料，請先讀取 Excel 並確認有有效日期。', 'danger'); 
+        return; 
+      }
       
       const btn = document.getElementById('sendBatchBtn'); 
       btn.disabled = true; 
       const orig = btn.innerHTML; 
-      btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> 傳送中...';
+      // 顯示總筆數
+      btn.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> 傳送中 (0 / ${validEntriesToSend.length})...`;
       
       let success = 0, fail = 0;
       
-      for (const name of keys){ 
-        const dates = importedGroups[name]; 
-        // 過濾掉早於最早可選日期的日期
-        const filtered = dates.filter(d => dateOnly(d) >= dateOnly(minDate)); 
+      // *** 修改點 9：遍歷 'validEntriesToSend' (逐筆) 而不是 'importedGroups' (按姓名) ***
+      for (let i = 0; i < validEntriesToSend.length; i++) {
+        const entry = validEntriesToSend[i];
         
-        if (filtered.length === 0){ 
-          fail++; 
-          continue; 
-        } 
-        
+        // 更新按鈕進度
+        btn.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> 傳送中 (${i+1} / ${validEntriesToSend.length})...`;
+
+        // 建立 payload (每次只送一筆資料)
         const payload = { 
-          name, 
-          dates: filtered.map(d => picker.formatDate(d,'Y-m-d')) // 轉換為 YYYY-MM-DD 格式
+          name: entry.name, 
+          dates: [ picker.formatDate(entry.date, 'Y-m-d') ] // API 期望 'dates' 是一個陣列
         }; 
         
         try{ 
@@ -446,7 +524,14 @@
       
       btn.disabled = false; 
       btn.innerHTML = orig; 
-      showBatchMsg(`批次完成：成功 ${success} 筆，失敗 ${fail} 筆。`, success > 0 ? 'success' : 'danger'); // **使用 showBatchMsg**
+      
+      // *** 修改點 10：'success' 和 'fail' 現在代表的是「資料筆數」***
+      showBatchMsg(`批次完成：成功 ${success} 筆，失敗 ${fail} 筆。`, success > 0 ? 'success' : 'danger'); 
+      
+      // 清空已送出的資料
+      validEntriesToSend = [];
+      document.getElementById('excelFile').value = null; // 清空檔案選擇
+      document.getElementById('excelPreview').innerHTML = ''; // 清空預覽
     });
 
     // HTML 轉義工具函式 (防止 XSS)
@@ -459,4 +544,3 @@
 
 
 </html>
-
