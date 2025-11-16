@@ -238,7 +238,7 @@
 
     // 優化最早可選日期提示的顯示
     const minNoticeEl = document.getElementById('minNotice');
-    minNoticeEl.innerHTML = `<div style="font-size: 1.0rem; 1.0rem; font-weight: bold;"> ⚠️ **最早可選：${formatChineseDate(minDate)}** ⚠️<br><small class="d-block mt-1" style="font-size: 0.9rem; 1.0rem; font-weight: bold;">（需至少三個工作日前登記，不含週六、日）</small>`;
+    minNoticeEl.innerHTML = `<div style="font-size: 1.0rem; 1.0rem; font-weight: bold;">&nbsp;⚠️ **最早可選：${formatChineseDate(minDate)}** ⚠️<br><small class="d-block mt-1" style="font-size: 0.9rem; 1.0rem; font-weight: bold;">（需至少三個工作日前登記，不含週六、日）</small>`;
 
     // 小幫手：只比較日期（忽略時間）
     function dateOnly(d) { return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
