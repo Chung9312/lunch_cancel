@@ -272,7 +272,7 @@
       document.getElementById('selectedCount').textContent = selectedDates.length; 
 
       if (selectedDates.length === 0) {
-          ul.innerHTML = '<li class="col-12 text-muted fst-italic ps-3">尚未選擇退餐日期。</li>';
+          ul.innerHTML = '<li class="col-12 text-muted fst-italic ps-3">尚未選擇任何日期。</li>';
           return;
       }
 
@@ -326,7 +326,9 @@
         });
         const result = await resp.json();
         if (result.status === 'success') {
-          showMsg('登記成功！', 'success');
+          // 修改為彈出對話視窗顯示姓名與日期
+          const dateList = dates.map(d => formatChineseDate(new Date(d))).join('\n');
+          alert(`登記成功！\n姓名：${name}\n完成退餐日期：\n${dateList}`);
           document.getElementById('mealForm').reset();
           picker.clear();
           updateSelectedList([]);
@@ -502,6 +504,7 @@
       btn.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> 傳送中 (0 / ${validEntriesToSend.length})...`;
       
       let success = 0, fail = 0;
+      let successDetails = []; // 用於收集成功傳送的姓名與日期
       
       // *** 修改點 9：遍歷 'validEntriesToSend' (逐筆) 而不是 'importedGroups' (按姓名) ***
       for (let i = 0; i < validEntriesToSend.length; i++) {
@@ -523,8 +526,10 @@
             headers: { 'Content-Type': 'text/plain' } 
           }); 
           const result = await resp.json(); 
-          if (result && result.status === 'success') success++; 
-          else fail++; 
+          if (result && result.status === 'success') {
+            success++;
+            successDetails.push({ name: entry.name, date: formatChineseDate(entry.date) });
+          } else fail++; 
         } catch(err){ 
           fail++; 
         } 
@@ -535,6 +540,12 @@
       
       // *** 修改點 10：'success' 和 'fail' 現在代表的是「資料筆數」***
       showBatchMsg(`批次完成：成功 ${success} 筆，失敗 ${fail} 筆。`, success > 0 ? 'success' : 'danger'); 
+      
+      // 如果有成功筆數，彈出對話視窗顯示詳細資訊
+      if (success > 0) {
+        let detailText = successDetails.map(d => `姓名：${d.name}\n日期：${d.date}`).join('\n\n');
+        alert(`傳送成功！\n${detailText}`);
+      }
       
       // 清空已送出的資料
       validEntriesToSend = [];
@@ -553,8 +564,3 @@
 
 
 </html>
-
-
-
-
-
